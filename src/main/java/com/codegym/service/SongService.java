@@ -76,6 +76,20 @@ public class SongService implements ISongService {
 
 	@Override
 	public void remove(int id) {
-
+		Song song = findById(id);
+		if (song != null) {
+			Transaction transaction = null;
+			try (Session session = sessionFactory.openSession()) {
+				transaction = session.beginTransaction();
+				session.remove(song);
+				transaction.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e.getMessage());
+				if (transaction != null) {
+					transaction.rollback();
+				}
+			}
+		}
 	}
 }

@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -30,7 +27,7 @@ public class SongController {
 	}
 
 	@GetMapping("/create")
-	public String createSong(Model model) {
+	public String showCreateForm(Model model) {
 		model.addAttribute("songForm", new SongForm());
 		return "create";
 	}
@@ -39,7 +36,7 @@ public class SongController {
 	private String folderPath;
 
 	@PostMapping("/save")
-	public String saveSong(@ModelAttribute SongForm songForm, Model model) {
+	public String saveSong(SongForm songForm, Model model) {
 		MultipartFile multipartFile = songForm.getFile();
 		String fileName = multipartFile.getOriginalFilename();
 		try {
@@ -54,5 +51,28 @@ public class SongController {
 		model.addAttribute("songForm", songForm);
 		model.addAttribute("message", "Add new song successfully!");
 		return "create";
+	}
+
+	@GetMapping("/{id}/edit")
+	public String showEditForm(@PathVariable("id") int id, Model model) {
+		model.addAttribute("song", songService.findById(id));
+		return "update";
+	}
+	@PostMapping("/update")
+	public String updateSong(Song song, Model model) {
+		songService.update(song);
+		model.addAttribute("message", "Update song successfully!");
+		return "update";
+	}
+
+	@GetMapping("/{id}/delete")
+	public String showDeleteForm(@PathVariable("id") int id, Model model) {
+		model.addAttribute("song", songService.findById(id));
+		return "delete";
+	}
+	@PostMapping("/delete")
+	public String deleteSong(Song song, Model model) {
+		songService.remove(song.getId());
+		return "redirect:/songs";
 	}
 }

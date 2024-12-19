@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>AddNewSong</title>
+    <title>UpdateSong</title>
 </head>
 <body>
-<h3>Add Song</h3>
+<h3>Update Song Information</h3>
 
 <p>
     <a th:href="@{/songs}">
@@ -17,8 +17,8 @@
 </div>
 
 <div id="form">
-    <form th:action="@{/songs/save}" th:object="${songForm}"
-          method="POST" enctype="multipart/form-data">
+    <form th:action="@{/songs/update}" th:object="${song}" method="POST">
+        <input type="hidden" th:field="*{id}">
         <table>
             <tr>
                 <td><label for="title">Title: </label></td>
@@ -32,10 +32,7 @@
                 <td><label for="gender">Song Gender: </label></td>
                 <td><input type="text" id="gender" th:field="*{gender}"/></td>
             </tr>
-            <tr>
-                <td><label for="file">Audio File: </label></td>
-                <td><input type="file" id="file" th:field="*{file}"/></td>
-            </tr>
+            <input type="hidden" th:field="*{songFile}">
             <tr>
                 <td></td>
                 <td><input type="submit" value="Save"/></td>

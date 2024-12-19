@@ -3,6 +3,7 @@ package com.codegym.model;
 import org.springframework.web.multipart.MultipartFile;
 
 public class SongForm {
+	private int id;
 	private String title;
 	private String artist;
 	private String gender;
@@ -10,11 +11,20 @@ public class SongForm {
 
 	public SongForm() {}
 
-	public SongForm(String title, String artist, String gender, MultipartFile file) {
+	public SongForm(int id, String title, String artist, String gender, MultipartFile file) {
+		this.id = id;
 		this.title = title;
 		this.artist = artist;
 		this.gender = gender;
 		this.file = file;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
