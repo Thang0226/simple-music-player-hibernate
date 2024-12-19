@@ -7,10 +7,8 @@
 
 <body>
 <h3>Interesting Songs for You</h3>
-<p>
-  <a th:href="@{/songs/create}">
-    Add new song
-  </a>
+<p style="margin-left: 5px">
+  <a th:href="@{/songs/create}"> Add new song </a>
 </p>
 
 <div class="notify">
@@ -39,8 +37,8 @@
       <source th:src="@{'/songs/' + ${row.songFile}}" type="audio/mpeg">
       Browser does not support the audio tag.
     </audio></td>
-    <td><a th:href="@{/songs/{id}/edit(id=${row.id})}">edit</a></td>
-    <td><a th:href="@{/songs/{id}/delete(id=${row.id})}">delete</a></td>
+    <td><a th:href="@{/songs/{id}/edit(id=${row.id})}"> Edit </a></td>
+    <td><a th:href="@{/songs/{id}/delete(id=${row.id})}"> Delete </a></td>
   </tr>
   </tbody>
 </table>
